@@ -44,7 +44,7 @@
 
 /* ---- Global Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 20px; }
+html { scroll-behavior: smooth; font-size: 18px; }
 body {
   font-family: var(--font-sans);
   background: #f4f5fb;
@@ -265,7 +265,6 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
   max-width: 560px;
   margin: 12px auto 0;
   line-height: 1.8;
-  text-align: justify;
 }
 
 /* ============================================================
@@ -288,7 +287,7 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
    ============================================================ */
 .pf-hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -309,7 +308,7 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 8rem 2rem 6rem;
+  padding: 6.5rem 2rem 4.5rem;
   max-width: var(--max-width);
   margin: 0 auto;
   width: 100%;
@@ -337,7 +336,7 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
   50% { opacity: 0.6; transform: scale(0.8); }
 }
 .pf-hero-title {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
   font-weight: 900;
   line-height: 1.15;
   letter-spacing: -0.03em;
@@ -351,7 +350,7 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
   background-clip: text;
 }
 .pf-hero-subtitle {
-  font-size: clamp(1.35rem, 3.2vw, 1.9rem);
+  font-size: clamp(1.2rem, 2.8vw, 1.65rem);
   font-weight: 400;
   color: var(--text-500);
   margin-bottom: 1.5rem;
@@ -369,12 +368,11 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
 }
 @keyframes pf-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .pf-hero-desc {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--text-500);
   max-width: 560px;
   margin: 0 auto 2.5rem;
   line-height: 1.85;
-  text-align: justify;
 }
 .pf-hero-actions {
   display: flex;
@@ -507,7 +505,6 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
   color: var(--text-500);
   line-height: 1.85;
   margin-bottom: 1rem;
-  text-align: justify;
 }
 .pf-about-facts {
   display: grid;
@@ -720,7 +717,7 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
 .pf-proj-action:hover { color: var(--primary); background: white; }
 .pf-project-body { padding: 1.25rem; }
 .pf-project-title { font-size: 1.25rem; font-weight: 700; color: var(--text-900); margin-bottom: 0.5rem; line-height: 1.3; }
-.pf-project-desc { font-size: 1.05rem; color: var(--text-500); line-height: 1.8; margin-bottom: 1rem; text-align: justify; }
+.pf-project-desc { font-size: 1.05rem; color: var(--text-500); line-height: 1.8; margin-bottom: 1rem; }
 .pf-project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .pf-project-tag {
   padding: 6px 12px;
@@ -810,7 +807,6 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
   line-height: 1.8;
   padding-left: 1.5rem;
   margin-bottom: 0.75rem;
-  text-align: justify;
 }
 .pf-tl-list-item::before {
   content: '';
@@ -906,7 +902,7 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
   background: #4ade80;
   animation: pf-pulse 2s infinite;
 }
-.pf-avail-desc { font-size: 1rem; opacity: 0.85; line-height: 1.8; font-weight: 400; text-align: justify; }
+.pf-avail-desc { font-size: 1rem; opacity: 0.85; line-height: 1.8; font-weight: 400; }
 .pf-contact-form-box {
   background: white;
   border-radius: var(--radius-2xl);
@@ -1069,7 +1065,7 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
 }
 .pf-footer-logo { font-size: 1.7rem; font-weight: 800; color: white; margin-bottom: 0.75rem; line-height: 1.2; }
 .pf-footer-logo span { color: var(--primary); }
-.pf-footer-tagline { font-size: 1.05rem; line-height: 1.8; text-align: justify; }
+.pf-footer-tagline { font-size: 1.05rem; line-height: 1.8; }
 .pf-footer-heading {
   font-size: 0.95rem; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
@@ -1093,7 +1089,7 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
   transition: var(--transition-fast);
 }
 .pf-footer-social:hover { background: var(--primary); color: white; }
-.pf-footer-cta-text { font-size: 1.05rem; line-height: 1.7; text-align: justify; }
+.pf-footer-cta-text { font-size: 1.05rem; line-height: 1.7; }
 .pf-footer-cta-btn {
   color: var(--primary-light); text-decoration: underline;
   text-underline-offset: 2px; background: none; border: none;
@@ -1246,6 +1242,28 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; line-height: 
 @media (max-width: 600px) {
   .pf-terminal-window { bottom: 5rem; right: 0.75rem; left: 0.75rem; width: auto; }
   .pf-terminal-trigger { bottom: 1.25rem; right: 1.25rem; }
+}
+
+@media (max-width: 1024px) {
+  .pf-hero-content { padding: 6rem 1.75rem 4rem; }
+  .pf-hero-title { font-size: clamp(2.4rem, 6.5vw, 4.4rem); }
+}
+
+@media (max-width: 768px) {
+  html { font-size: 17px; }
+  .pf-hero-content { padding: 5.5rem 1.25rem 3.5rem; }
+  .pf-hero-subtitle { min-height: 2em; }
+  .pf-hero-desc { max-width: 100%; line-height: 1.75; }
+  .pf-scroll-hint { bottom: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 16px; }
+  .pf-hero-content { padding: 5rem 1rem 3rem; }
+  .pf-hero-title { font-size: clamp(2rem, 9vw, 2.6rem); }
+  .pf-hero-subtitle { font-size: 1.05rem; }
+  .pf-btn-primary,
+  .pf-btn-secondary { font-size: 1rem; padding: 14px 22px; }
 }
 
 /* ============================================================
