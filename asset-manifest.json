@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Personalportfoliowebsite/static/css/main.77e523ee.css",
+    "main.js": "/Personalportfoliowebsite/static/js/main.8f29287e.js",
+    "static/media/Yugandhar Reddy Bana CV_Main.pdf": "/Personalportfoliowebsite/static/media/Yugandhar Reddy Bana CV_Main.9780f453f4ff72a44914.pdf",
+    "static/media/profilePic.jpg": "/Personalportfoliowebsite/static/media/profilePic.5cf6948c97538ca3ff32.jpg",
+    "index.html": "/Personalportfoliowebsite/index.html",
+    "main.77e523ee.css.map": "/Personalportfoliowebsite/static/css/main.77e523ee.css.map",
+    "main.8f29287e.js.map": "/Personalportfoliowebsite/static/js/main.8f29287e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.77e523ee.css",
+    "static/js/main.8f29287e.js"
+  ]
+}
