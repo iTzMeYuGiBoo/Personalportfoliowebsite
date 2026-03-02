@@ -1,0 +1,14 @@
+{
+  "name": "Yugandhar Reddy Bana - Full Stack Developer Portfolio",
+  "short_name": "Yugandhar Portfolio",
+  "description": "Professional portfolio showcasing full stack development projects and expertise in React, Node.js, and cloud technologies",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f5fb",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "icons": [],
+  "categories": ["business", "portfolio", "technology"],
+  "lang": "en-IE",
+  "dir": "ltr"
+}

@@ -1,0 +1,11 @@
+# robots.txt for Yugandhar Reddy Bana Portfolio
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Specify sitemap location
+Sitemap: https://itzmetyugiboo.github.io/Personalportfoliowebsite/sitemap.xml
+
+# Crawl-delay for bots (optional)
+Crawl-delay: 10

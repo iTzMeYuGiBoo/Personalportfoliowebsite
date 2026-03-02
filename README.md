@@ -1,11 +1,44 @@
+# Personal Portfolio Website
 
-  # Personal Portfolio Website
+Modern, responsive React portfolio showcasing full-stack development expertise.
 
-  This is a code bundle for Personal Portfolio Website. The original project is available at https://www.figma.com/design/UtgmS3eUppGYaflTcGsGKk/Personal-Portfolio-Website.
+## 🚀 Quick Start
 
-  ## Running the code
+```bash
+# Install dependencies
+npm install
 
-  Run `npm i` to install the dependencies.
+# Run development server (localhost:3000)
+npm start
 
-  Run `npm run dev` to start the development server.
-  
+# Build for production
+npm run build
+
+# Deploy to GitHub Pages
+npm run deploy
+```
+
+## 📦 Tech Stack
+
+- React 18.3.1
+- React Scripts 5.0.1
+- Pure CSS (no frameworks)
+- GitHub Pages deployment
+
+## ✅ Features
+
+- ✨ Smooth scroll animations
+- 🎨 Custom interactive cursor
+- 💻 Interactive terminal
+- 📱 Fully responsive design
+- ♿ WCAG 2.1 AA accessibility compliant
+- 🔍 SEO optimized with Open Graph & JSON-LD
+- 🎯 Performance optimized (58KB gzipped)
+
+## 🚀 Deployment
+
+See detailed instructions in [DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md)
+
+## 📄 License
+
+© 2026 Yugandhar Reddy Bana. All rights reserved.
