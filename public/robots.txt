@@ -5,7 +5,7 @@ User-agent: *
 Allow: /
 
 # Specify sitemap location
-Sitemap: https://itzmetyugiboo.github.io/Personalportfoliowebsite/sitemap.xml
+Sitemap: https://itzmeyugiboo.github.io/Personalportfoliowebsite/sitemap.xml
 
 # Crawl-delay for bots (optional)
 Crawl-delay: 10
