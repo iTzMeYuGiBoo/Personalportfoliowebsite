@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { GithubIcon, LinkedinIcon, TwitterIcon, DownloadIcon, ArrowDownIcon } from "./Icons";
-import resumePDF from "../../assets/Yugandhar Reddy Bana CV_Main.pdf";
 
 const TITLES = [
   "Full Stack Software Engineer",
@@ -10,6 +9,8 @@ const TITLES = [
   "Enterprise Solutions Architect",
   "Microservices & Cloud Engineer",
 ];
+
+const CV_PATH = process.env.PUBLIC_URL + "/Yugandhar_Reddy_Bana_CV.pdf";
 
 function useParticleCanvas(canvasRef) {
   useEffect(() => {
@@ -30,9 +31,9 @@ function useParticleCanvas(canvasRef) {
     window.addEventListener("resize", resize);
 
     const N = Math.min(80, Math.floor((width * height) / 12000));
-    const particles = Array.from({ length: N }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
+    const particles = Array.from({ length: N || 40 }, () => ({
+      x: Math.random() * (width || 800),
+      y: Math.random() * (height || 600),
       vx: (Math.random() - 0.5) * 0.4,
       vy: (Math.random() - 0.5) * 0.4,
       r: Math.random() * 2.5 + 1,
@@ -119,7 +120,6 @@ function useTypingEffect(words) {
   return displayed;
 }
 
-// Magnetic button effect
 function MagneticBtn({ children, className, onClick, href, download, as: Tag = "button" }) {
   const ref = useRef(null);
   const onMouseMove = (e) => {
@@ -133,17 +133,27 @@ function MagneticBtn({ children, className, onClick, href, download, as: Tag = "
   const onMouseLeave = () => {
     if (ref.current) ref.current.style.transform = "translate(0,0)";
   };
-  const props = { ref, className, onMouseMove, onMouseLeave, style: { transition: "transform 0.3s cubic-bezier(0.23,1,0.32,1)" } };
+  const style = { transition: "transform 0.3s cubic-bezier(0.23,1,0.32,1)" };
   if (Tag === "a") {
-    return <a {...props} href={href} download={download} aria-label={download}>{children}</a>;
+    return (
+      <a ref={ref} className={className} href={href} download={download}
+        onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} style={style}>
+        {children}
+      </a>
+    );
   }
-  return <button {...props} onClick={onClick}>{children}</button>;
+  return (
+    <button ref={ref} className={className} onClick={onClick}
+      onMouseMove={onMouseMove} onMouseLeave={onMouseLeave} style={style}>
+      {children}
+    </button>
+  );
 }
 
 const SOCIALS = [
-  { Icon: GithubIcon,   href: "https://github.com/iTzMeYuGiBoo",   label: "GitHub" },
-  { Icon: LinkedinIcon, href: "https://linkedin.com/in/yugandhar-reddy-bana", label: "LinkedIn" },
-  { Icon: TwitterIcon,  href: "https://twitter.com",  label: "Twitter" },
+  { Icon: GithubIcon,   href: "https://github.com/iTzMeYuGiBoo",                    label: "GitHub" },
+  { Icon: LinkedinIcon, href: "https://linkedin.com/in/yugandhar-reddy-bana",        label: "LinkedIn" },
+  { Icon: TwitterIcon,  href: "https://twitter.com",                                 label: "Twitter" },
 ];
 
 export function Hero() {
@@ -153,7 +163,12 @@ export function Hero() {
 
   return (
     <section className="pf-hero">
-      <canvas ref={canvasRef} className="pf-hero-canvas" style={{ width: "100%", height: "100%" }} />
+      <canvas
+        ref={canvasRef}
+        className="pf-hero-canvas"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+        aria-hidden="true"
+      />
 
       <div className="pf-hero-content">
         <div className="pf-hero-badge">
@@ -162,7 +177,7 @@ export function Hero() {
         </div>
 
         <h1 className="pf-hero-title">
-          Hi, I'm{" "}
+          Hi, I&#39;m{" "}
           <span className="pf-hero-gradient">Yugandhar Reddy Bana</span>
         </h1>
 
@@ -189,7 +204,7 @@ export function Hero() {
           <MagneticBtn
             as="a"
             className="pf-btn-secondary"
-            href={resumePDF}
+            href={CV_PATH}
             download="Yugandhar_Reddy_Bana_CV.pdf"
           >
             <DownloadIcon size={16} />

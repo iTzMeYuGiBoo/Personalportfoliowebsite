@@ -1,6 +1,5 @@
 import { useRef, useCallback, useState } from "react";
 import { GithubIcon } from "./Icons";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useReveal } from "./useReveal";
 
 const FILTERS = ["All", "React", "Node.js", "Java", "TypeScript", "AI/ML"];
@@ -43,7 +42,8 @@ function TiltCard({ children }) {
     card.style.transform = `perspective(700px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) scale(1.02)`;
   }, []);
   const onMouseLeave = useCallback(() => {
-    if (cardRef.current) cardRef.current.style.transform = "perspective(700px) rotateY(0deg) rotateX(0deg) scale(1)";
+    if (cardRef.current)
+      cardRef.current.style.transform = "perspective(700px) rotateY(0deg) rotateX(0deg) scale(1)";
   }, []);
   return (
     <div
@@ -62,9 +62,10 @@ export function Projects() {
   const [selectedFilter, setSelectedFilter] = useState("All");
   useReveal();
 
-  const filteredProjects = selectedFilter === "All"
-    ? PROJECTS
-    : PROJECTS.filter(p => p.tags && p.tags.some(tag => tag === selectedFilter));
+  const filteredProjects =
+    selectedFilter === "All"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.tags && p.tags.includes(selectedFilter));
 
   return (
     <section id="projects" className="pf-section">
@@ -73,7 +74,7 @@ export function Projects() {
           <p className="pf-section-tag reveal">Portfolio</p>
           <h2 className="pf-section-title reveal reveal-d1">Featured Projects</h2>
           <p className="pf-section-desc reveal reveal-d2">
-            A selection of projects I'm proud of — from concept to deployment.
+            A selection of projects I&#39;m proud of &#8212; from concept to deployment.
           </p>
         </div>
 
@@ -99,10 +100,11 @@ export function Projects() {
               <div key={project.id} className={`reveal reveal-d${i + 1}`}>
                 <TiltCard>
                   <div className="pf-project-img-wrap">
-                    <ImageWithFallback
+                    <img
                       src={project.img}
                       alt={project.title}
                       className="pf-project-img"
+                      loading="lazy"
                     />
                     <div className="pf-project-overlay">
                       <p className="pf-project-overlay-title">{project.title}</p>
@@ -126,9 +128,12 @@ export function Projects() {
                     <h3 className="pf-project-title">{project.title}</h3>
                     <p className="pf-project-desc">{project.description}</p>
                     <div className="pf-project-tags">
-                      {project.tags && project.tags.map((tag) => (
-                        <span key={tag} className="pf-project-tag">{tag}</span>
-                      ))}
+                      {project.tags &&
+                        project.tags.map((tag) => (
+                          <span key={tag} className="pf-project-tag">
+                            {tag}
+                          </span>
+                        ))}
                     </div>
                   </div>
                 </TiltCard>
