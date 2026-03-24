@@ -9,62 +9,49 @@ const PROJECTS = [
   {
     id: "proj_ai_data_extractor",
     title: "AI Learning Assistant (Flash Card Application)",
-    description:
-      "Developed a full-stack study app with complex state management, using GenAI to automate content creation and reducing manual input by 70%.",
+    description: "Developed a full-stack study app with complex state management, using GenAI to automate content creation and reducing manual input by 70%.",
     img: "https://images.unsplash.com/photo-1551281044-8b6d7f3d8f50?auto=format&fit=crop&w=1200&q=80",
-    tags: ["Node.js", "React.js", "AI/ML"],
+    tags: ["Node.js", "React", "AI/ML"],
+    github: "https://github.com/iTzMeYuGiBoo",
   },
   {
     id: "proj_verizon_dashboard",
     title: "Enterprise Customer Search Dashboard",
-    description:
-      "Optimized Verizon customer search experience with React and Redux, improving speed and usability for high-volume support flows.",
+    description: "Optimized Verizon customer search experience with React and Redux, improving speed and usability for high-volume support flows.",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-    tags: ["React", "Node.js","Java"],
+    tags: ["React", "Node.js", "Java"],
+    github: "https://github.com/iTzMeYuGiBoo",
   },
   {
     id: "proj_microservices_migration",
     title: "Legacy-to-Microservices Migration",
-    description:
-      "Migrated monolithic modules to Java Spring Boot microservices with better reliability, deployment flow, and maintainability.",
+    description: "Migrated monolithic modules to Java Spring Boot microservices with better reliability, deployment flow, and maintainability.",
     img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-    tags: ["Java", "Node.js"],
+    tags: ["Java", "Node.js", "TypeScript"],
+    github: "https://github.com/iTzMeYuGiBoo",
   },
-  // {
-  //   id: "proj_portfolio_site",
-  //   title: "Personal Portfolio Website",
-  //   description:
-  //     "Designed and developed a responsive portfolio with modern UI, smooth interactions, and accessible section-based navigation.",
-  //   img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
-  //   tags: ["React", "TypeScript"],
-  // },
 ];
 
 function TiltCard({ children }) {
   const cardRef = useRef(null);
-
   const onMouseMove = useCallback((e) => {
     const card = cardRef.current;
     if (!card) return;
     const rect = card.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `perspective(600px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+    card.style.transform = `perspective(700px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) scale(1.02)`;
   }, []);
-
   const onMouseLeave = useCallback(() => {
-    if (cardRef.current) {
-      cardRef.current.style.transform = "perspective(600px) rotateY(0deg) rotateX(0deg) scale(1)";
-    }
+    if (cardRef.current) cardRef.current.style.transform = "perspective(700px) rotateY(0deg) rotateX(0deg) scale(1)";
   }, []);
-
   return (
     <div
       ref={cardRef}
       className="pf-project-card"
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      style={{ transition: "transform 0.15s ease, box-shadow 0.3s ease" }}
+      style={{ transition: "transform 0.15s ease, box-shadow 0.3s ease, border-color 0.3s ease" }}
     >
       {children}
     </div>
@@ -72,15 +59,12 @@ function TiltCard({ children }) {
 }
 
 export function Projects() {
-  const projects = PROJECTS;
   const [selectedFilter, setSelectedFilter] = useState("All");
-  
   useReveal();
 
-  // Filter projects based on selected tag
-  const filteredProjects = selectedFilter === "All" 
-    ? projects 
-    : projects.filter(p => p.tags && p.tags.some(tag => tag === selectedFilter));
+  const filteredProjects = selectedFilter === "All"
+    ? PROJECTS
+    : PROJECTS.filter(p => p.tags && p.tags.some(tag => tag === selectedFilter));
 
   return (
     <section id="projects" className="pf-section">
@@ -94,9 +78,9 @@ export function Projects() {
         </div>
 
         <div className="pf-filter-row reveal">
-          {FILTERS.map((f, i) => (
-            <button 
-              key={f} 
+          {FILTERS.map((f) => (
+            <button
+              key={f}
               className={`pf-filter-btn${selectedFilter === f ? " active" : ""}`}
               onClick={() => setSelectedFilter(f)}
             >
@@ -106,8 +90,8 @@ export function Projects() {
         </div>
 
         {filteredProjects.length === 0 ? (
-          <div className="pf-empty-state reveal">
-            <p>No projects found.</p>
+          <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-400)" }}>
+            No projects match this filter.
           </div>
         ) : (
           <div className="pf-projects-grid">
@@ -116,15 +100,31 @@ export function Projects() {
                 <TiltCard>
                   <div className="pf-project-img-wrap">
                     <ImageWithFallback
-                      src={project.img || project.image}
+                      src={project.img}
                       alt={project.title}
                       className="pf-project-img"
                     />
+                    <div className="pf-project-overlay">
+                      <p className="pf-project-overlay-title">{project.title}</p>
+                      <div className="pf-project-overlay-actions">
+                        {project.github && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="pf-proj-action"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <GithubIcon size={13} />
+                            GitHub
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
-
                   <div className="pf-project-body">
                     <h3 className="pf-project-title">{project.title}</h3>
-                    <p className="pf-project-desc">{project.desc || project.description}</p>
+                    <p className="pf-project-desc">{project.description}</p>
                     <div className="pf-project-tags">
                       {project.tags && project.tags.map((tag) => (
                         <span key={tag} className="pf-project-tag">{tag}</span>

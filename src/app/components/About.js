@@ -1,11 +1,12 @@
+import { useEffect, useRef, useState } from "react";
 import { MapPinIcon, MailIcon, CalendarIcon, CoffeeIcon } from "./Icons";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useReveal } from "./useReveal";
 import profilePic from "../../assets/profilePic.jpg";
 
 const STATS = [
-  { value: "3+", label: "Years Experience" },
-  { value: "10+", label: "Projects Completed" },
+  { value: 3, suffix: "+", label: "Years Experience" },
+  { value: 10, suffix: "+", label: "Projects Completed" },
 ];
 
 const FACTS = [
@@ -15,8 +16,49 @@ const FACTS = [
   { Icon: CoffeeIcon, text: "Available for Immediate Start" },
 ];
 
+function useCountUp(target, duration, isVisible) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!isVisible) return;
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { setCount(target); clearInterval(timer); }
+      else setCount(Math.floor(start));
+    }, 16);
+    return () => clearInterval(timer);
+  }, [target, duration, isVisible]);
+  return count;
+}
+
+function StatCard({ value, suffix, label, isVisible }) {
+  const count = useCountUp(value, 1600, isVisible);
+  return (
+    <div className="pf-stat-card">
+      <span className="pf-stat-value">
+        {count}<span className="pf-stat-suffix">{suffix}</span>
+      </span>
+      <span className="pf-stat-label">{label}</span>
+    </div>
+  );
+}
+
 export function About() {
   useReveal();
+  const statsRef = useRef(null);
+  const [statsVisible, setStatsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStatsVisible(true); io.disconnect(); } },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <section id="about" className="pf-section">
@@ -44,7 +86,7 @@ export function About() {
               Full Stack Software Engineer based in Dublin, Ireland
             </h3>
             <p className="pf-about-para reveal reveal-d1">
-              Full Stack Software Engineer with 2.5 years of enterprise experience, specializing in building and scaling web applications that integrate high‑performance Java and Node.js backends with modern React.js and TypeScript frontends.
+              Full Stack Software Engineer with 2.5 years of enterprise experience, specializing in building and scaling web applications that integrate high-performance Java and Node.js backends with modern React.js and TypeScript frontends.
             </p>
             <p className="pf-about-para reveal reveal-d2">
               Delivered measurable results by modernizing a Verizon enterprise platform, achieving a 67% reduction in system latency. Highly skilled in applying a data-driven, AI-augmented development approach—leveraging tools like Cursor, GitHub Copilot, ChatGPT, and Google Gemini—to accelerate delivery velocity, optimize legacy architectures, and ensure exceptional code quality.
@@ -53,9 +95,7 @@ export function About() {
             <div className="pf-about-facts reveal reveal-d3">
               {FACTS.map(({ Icon, text }) => (
                 <div key={text} className="pf-fact">
-                  <span className="pf-fact-icon">
-                    <Icon size={15} />
-                  </span>
+                  <span className="pf-fact-icon"><Icon size={15} /></span>
                   {text}
                 </div>
               ))}
@@ -70,11 +110,10 @@ export function About() {
           </div>
         </div>
 
-        <div className="pf-stats-grid">
-          {STATS.map(({ value, label }, i) => (
-            <div key={label} className={`pf-stat-card reveal reveal-d${i + 1}`}>
-              <span className="pf-stat-value">{value}</span>
-              <span className="pf-stat-label">{label}</span>
+        <div className="pf-stats-grid" ref={statsRef}>
+          {STATS.map(({ value, suffix, label }, i) => (
+            <div key={label} className={`reveal reveal-d${i + 1}`}>
+              <StatCard value={value} suffix={suffix} label={label} isVisible={statsVisible} />
             </div>
           ))}
         </div>

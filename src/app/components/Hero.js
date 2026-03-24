@@ -11,7 +11,6 @@ const TITLES = [
   "Microservices & Cloud Engineer",
 ];
 
-// Canvas constellation particles
 function useParticleCanvas(canvasRef) {
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -49,7 +48,6 @@ function useParticleCanvas(canvasRef) {
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
-
       particles.forEach((p) => {
         const dx = p.x - mouse.x, dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -58,23 +56,17 @@ function useParticleCanvas(canvasRef) {
           p.vx += (dx / dist) * force * 0.6;
           p.vy += (dy / dist) * force * 0.6;
         }
-
-        p.vx *= 0.97;
-        p.vy *= 0.97;
-        p.x += p.vx;
-        p.y += p.vy;
-
+        p.vx *= 0.97; p.vy *= 0.97;
+        p.x += p.vx; p.y += p.vy;
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
-
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(99,102,241,${p.alpha})`;
         ctx.fill();
       });
-
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -90,12 +82,9 @@ function useParticleCanvas(canvasRef) {
           }
         }
       }
-
       animId = requestAnimationFrame(draw);
     };
-
     draw();
-
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
@@ -104,7 +93,6 @@ function useParticleCanvas(canvasRef) {
   }, [canvasRef]);
 }
 
-// Typewriter hook
 function useTypingEffect(words) {
   const [displayed, setDisplayed] = useState("");
   const [wordIdx, setWordIdx] = useState(0);
@@ -114,7 +102,6 @@ function useTypingEffect(words) {
   useEffect(() => {
     const word = words[wordIdx];
     let timeout;
-
     if (!deleting && charIdx < word.length) {
       timeout = setTimeout(() => setCharIdx((c) => c + 1), 65);
     } else if (!deleting && charIdx === word.length) {
@@ -125,12 +112,32 @@ function useTypingEffect(words) {
       setDeleting(false);
       setWordIdx((w) => (w + 1) % words.length);
     }
-
     setDisplayed(word.slice(0, charIdx));
     return () => clearTimeout(timeout);
   }, [charIdx, deleting, wordIdx, words]);
 
   return displayed;
+}
+
+// Magnetic button effect
+function MagneticBtn({ children, className, onClick, href, download, as: Tag = "button" }) {
+  const ref = useRef(null);
+  const onMouseMove = (e) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    el.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+  };
+  const onMouseLeave = () => {
+    if (ref.current) ref.current.style.transform = "translate(0,0)";
+  };
+  const props = { ref, className, onMouseMove, onMouseLeave, style: { transition: "transform 0.3s cubic-bezier(0.23,1,0.32,1)" } };
+  if (Tag === "a") {
+    return <a {...props} href={href} download={download} aria-label={download}>{children}</a>;
+  }
+  return <button {...props} onClick={onClick}>{children}</button>;
 }
 
 const SOCIALS = [
@@ -149,41 +156,48 @@ export function Hero() {
       <canvas ref={canvasRef} className="pf-hero-canvas" style={{ width: "100%", height: "100%" }} />
 
       <div className="pf-hero-content">
-        <div className="pf-hero-badge reveal visible">
+        <div className="pf-hero-badge">
           <span className="pf-badge-dot" />
           Available for new opportunities
         </div>
 
-        <h1 className="pf-hero-title reveal visible" style={{ transitionDelay: "0.1s" }}>
+        <h1 className="pf-hero-title">
           Hi, I'm{" "}
           <span className="pf-hero-gradient">Yugandhar Reddy Bana</span>
         </h1>
 
-        <p className="pf-hero-subtitle reveal visible" style={{ transitionDelay: "0.2s" }}>
-          {typedTitle}
-          <span className="pf-typing-cursor" aria-hidden="true" />
-        </p>
+        <div className="pf-hero-subtitle-wrap">
+          <span className="pf-hero-subtitle">
+            {typedTitle}
+            <span className="pf-typing-cursor" aria-hidden="true" />
+          </span>
+        </div>
 
-        <p className="pf-hero-desc reveal visible" style={{ transitionDelay: "0.3s" }}>
+        <p className="pf-hero-desc">
           Building and scaling enterprise web applications with modern React,
           Java, and Node.js. Leveraging AI-augmented development
           to deliver exceptional results.
         </p>
 
-        <div className="pf-hero-actions reveal visible" style={{ transitionDelay: "0.4s" }}>
-          <button
+        <div className="pf-hero-actions">
+          <MagneticBtn
             className="pf-btn-primary"
             onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
           >
             View My Work
-          </button>
-          <a className="pf-btn-secondary" href={resumePDF} download="Yugandhar_Reddy_Bana_CV.pdf" aria-label="Download CV">
+          </MagneticBtn>
+          <MagneticBtn
+            as="a"
+            className="pf-btn-secondary"
+            href={resumePDF}
+            download="Yugandhar_Reddy_Bana_CV.pdf"
+          >
             <DownloadIcon size={16} />
             Download CV
-          </a>
+          </MagneticBtn>
         </div>
 
-        <div className="pf-hero-socials reveal visible" style={{ transitionDelay: "0.5s" }}>
+        <div className="pf-hero-socials">
           {SOCIALS.map(({ Icon, href, label }) => (
             <a
               key={label}
@@ -204,7 +218,7 @@ export function Hero() {
         onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
         aria-label="Scroll down"
       >
-        <span style={{ fontSize: "0.75rem" }}>Scroll down</span>
+        <span>Scroll down</span>
         <ArrowDownIcon size={16} />
       </button>
     </section>
